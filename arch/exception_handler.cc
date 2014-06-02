@@ -122,12 +122,11 @@ void trace_exception(void * object, const std::type_info * tinfo)
 
     time_t now;
     time(&now);
-    strftime(datetime, sizeof(datetime), "%F %H:%M:%S", localtime(&now));
+    strftime(datetime, sizeof(datetime), "%FT%H:%M:%S", localtime(&now));
 
     char * demangled = (noAlloc
-                        ? "std::bad_alloc"
+                        ? (char *) "std::bad_alloc"
                         : demangle(tinfo->name()));
-    char * demangled = demangle(tinfo->name());
     auto pid = getpid();
     auto tid = gettid();
 
@@ -174,8 +173,12 @@ void trace_exception(void * object, const std::type_info * tinfo)
     }
     totalWritten += written;
 
+    if (totalWritten < bufferSize - 1) {
+        strcpy(buffer + totalWritten, "\n");
+    }
+
 end:
-    ::fprintf(stderr, "%s\n", buffer);
+    cerr << buffer;
 
     char const * reports = getenv("ENABLE_EXCEPTION_REPORTS");
     if (!noAlloc && reports) {
