@@ -293,9 +293,9 @@ open(const std::string & uri, std::ios_base::openmode mode,
 
 void
 filter_ostream::
-open(const std::string & uri, std::ios_base::openmode mode,
-     const std::string & compression, int compressionLevel, 
-     unsigned int numThreads)
+open(const std::string & uri, unsigned int numThreads,
+     std::ios_base::openmode mode, const std::string & compression,
+     int compressionLevel)
 {
     //cerr << "uri = " << uri << " compression = " << compression << endl;
     std::map<std::string, std::string>  options = 
