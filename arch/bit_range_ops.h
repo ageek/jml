@@ -354,7 +354,7 @@ struct Bit_Buffer {
     }
 
     /// Extracts bits starting from the least-significant bits of the buffer.
-    Data extract(int64_t bits)
+    Data extract(shift_t bits)
     {
         if (JML_UNLIKELY(bits <= 0)) return Data(0);
 
@@ -384,7 +384,7 @@ struct Bit_Buffer {
     }
 
     /// Extracts bits starting from the most-significant bits of the buffer.
-    Data rextract(int64_t bits)
+    Data rextract(shift_t bits)
     {
         if (JML_UNLIKELY(bits == 0)) return Data(0);
 
