@@ -410,7 +410,7 @@ struct Bit_Buffer {
     /// bound checking is performed and it is up to the caller to ensure that
     /// the sum of the current offset and the "bits" parameter is within
     /// [0, sizeof(buffer)[.
-    void advance(int64_t bits)
+    void advance(ssize_t bits)
     {
         bit_ofs += bits;
         data += (bit_ofs / (sizeof(Data) * 8));
@@ -529,7 +529,7 @@ struct Bit_Extractor {
     }
 
     JML_COMPUTE_METHOD
-    void advance(int64_t bits)
+    void advance(ssize_t bits)
     {
         buf.advance(bits);
     }
